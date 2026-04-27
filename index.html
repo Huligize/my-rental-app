@@ -45,28 +45,39 @@
 
     <button onclick="sendDataToBot()">ቻናሉ ላይ ልጥፍ</button>
 
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.expand(); // Opens the app full screen
+   <script>
+    // 1. Initialize the Telegram WebApp object
+    const tg = window.Telegram.WebApp;
 
-        function sendDataToBot() {
-            const data = {
-                title: document.getElementById("title").value,
-                location: document.getElementById("loc").value,
-                price: document.getElementById("prc").value,
-                phone: document.getElementById("phn").value,
-                description: document.getElementById("desc").value
-            };
+    // 2. Expand the app to full screen as soon as it opens
+    tg.expand();
 
-            if(!data.location || !data.price || !data.phone) {
-                alert("እባክዎ አስፈላጊ መረጃዎችን (ቦታ፣ ዋጋ እና ስልክ) ያስገቡ!");
-                return;
-            }
+    function sendDataToBot() {
+        // 3. Collect data from your input fields
+        const data = {
+            title: document.getElementById("title").value,
+            location: document.getElementById("loc").value,
+            price: document.getElementById("prc").value,
+            phone: document.getElementById("phn").value,
+            description: document.getElementById("desc").value
+        };
 
-            // Sends the data to main.py
-            tg.sendData(JSON.stringify(data));
-            tg.close();
+        // 4. Simple Validation: Don't send empty data
+        if (!data.location || !data.price || !data.phone) {
+            alert("እባክዎ አስፈላጊ መረጃዎችን (ቦታ፣ ዋጋ እና ስልክ) ያስገቡ!");
+            return;
         }
-    </script>
-</body>
-</html>
+
+        // 5. THE CRITICAL HANDSHAKE
+        // This sends the JSON string to your Python main.py
+        try {
+            tg.sendData(JSON.stringify(data));
+            
+            // 6. Close the Mini App window
+            tg.close();
+        } catch (error) {
+            console.error("Telegram Mini App Error:", error);
+            alert("ስህተት ተፈጥሯል፤ እባክዎ በቦቱ ውስጥ መክፈትዎን ያረጋግጡ።");
+        }
+    }
+</script>
