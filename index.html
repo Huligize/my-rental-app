@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f7; }
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        button { width: 100%; background: #0088cc; color: #fff; border: none; padding: 15px; border-radius: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h3>ቤት ለመለጠፍ መረጃ ያስገቡ</h3>
+    <input type="text" id="title" placeholder="የቤት ዓይነት (ለምሳሌ፡ ባለ 3 አፓርትመንት)">
+    <input type="text" id="loc" placeholder="አድራሻ (ቦታ)">
+    <input type="number" id="prc" placeholder="ዋጋ (በብር)">
+    <input type="tel" id="phn" placeholder="የአከራይ ስልክ ቁጥር">
+    <textarea id="desc" placeholder="ዝርዝር መግለጫ..." rows="3"></textarea>
+    <button onclick="submitForm()">ቻናሉ ላይ ልጥፍ</button>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        function submitForm() {
+            let data = {
+                title: document.getElementById("title").value,
+                location: document.getElementById("loc").value,
+                price: document.getElementById("prc").value,
+                phone: document.getElementById("phn").value,
+                description: document.getElementById("desc").value
+            };
+
+            if(!data.location || !data.price || !data.phone) {
+                alert("እባክዎ አስፈላጊ መረጃዎችን ያስገቡ");
+                return;
+            }
+
+            tg.sendData(JSON.stringify(data));
+            tg.close();
+        }
+    </script>
+</body>
+</html>
