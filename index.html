@@ -1,14 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="am">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Betoch Mini App</title>
+    <title>ያለ ደላላ - Betoch</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --tg-theme-bg-color: #ffffff;
+            --primary-blue: #5d78ff;
+            --gradient-text: linear-gradient(90deg, #1e2a5e 0%, #6a5af9 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8faff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header Navigation */
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            box-sizing: border-box;
+            background: white;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .home-icon {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 8px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+        }
+
+        .brand-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tg-btn {
+            background: linear-gradient(45deg, #2196F3, #9C27B0);
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Hero Content */
+        .hero {
+            text-align: center;
+            margin-top: 50px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .text-dark { color: #1e2a5e; }
+        .text-gradient {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .warning-text {
+            color: #ff4d4d;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Action Button for the next step */
+        .start-btn {
+            margin-top: 30px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            width: 80%;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(93, 120, 255, 0.3);
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <h1>እንኳን ወደ ቤቶች በሰላም መጡ</h1>
+
+    <nav class="navbar">
+        <div class="logo-section">
+            <div class="home-icon"><i class="fas fa-home"></i></div>
+            <span class="brand-name">ያለ ደላላ</span>
         </div>
+        <div class="nav-buttons">
+            <button class="tg-btn">ቴሌግራም</button>
+            <i class="fas fa-bars" style="font-size: 1.5rem; color: #333;"></i>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <h1>
+            <span class="text-dark">የሚከራይ</span> 
+            <span class="text-gradient">ንብረት ይለጥፉ</span>
+        </h1>
+        <p>ንብረትዎን ቀለል ባለ መንገድ ያከራዩ።</p>
+        <p class="warning-text">ልብ ይበሉ: ደላላ አናስተናግድም!</p>
+        
+        <button class="start-btn" onclick="openForm()">አሁኑኑ ይለጥፉ</button>
+    </main>
+
+    <script>
+        // Initialize Telegram Mini App
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Opens the app to full height
+
+        function openForm() {
+            // This is where you would redirect to your SQLite-connected form
+            alert("የመልቀቂያ ቅጹ ወደፊት እዚህ ጋር ይቀርባል!");
+        }
+    </script>
 </body>
 </html>
