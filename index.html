@@ -6,20 +6,17 @@
     <title>ቤቶች (Betoch) - የሚከራይ ይለጥፉ</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* CSS Reset for consistent display */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Nyala", "Abyssinica SIL"; /* Include Amharic supported fonts */
-            background-color: #F7F9FC; /* Light gray-blue background from image */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Nyala";
+            background-color: #F7F9FC;
             color: #333;
             line-height: 1.6;
-            padding-bottom: 20px; /* Space at the bottom */
+            padding-bottom: 30px;
         }
 
-        /* --- STYLING START --- */
-
-        /* TOP NAVIGATION BAR */
+        /* TOP NAVIGATION */
         .top-nav {
             background-color: #fff;
             padding: 10px 15px;
@@ -27,93 +24,47 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #E1E8ED;
-            position: sticky; /* Keep it visible while scrolling */
+            position: sticky;
             top: 0;
             z-index: 100;
         }
 
-        .nav-left, .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
+        .nav-left { display: flex; align-items: center; gap: 12px; }
         .home-icon-bg {
-            background-color: #4C59CF; /* Blue circle background */
+            background-color: #4C59CF;
             color: white;
             border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
+            width: 34px; height: 34px;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        .nav-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #333;
-        }
-
+        .nav-title { font-size: 17px; font-weight: 700; }
         .telegram-btn {
-            background-color: #6C5CE7; /* Purple button background */
+            background-color: #6C5CE7;
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 5px 12px;
             border-radius: 8px;
             font-size: 12px;
             font-weight: 600;
-            cursor: pointer;
         }
 
-        /* HAMBURGER MENU ICON (Simplified) */
-        .hamburger-icon {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            cursor: pointer;
-        }
-        .hamburger-icon span {
-            display: block;
-            width: 18px;
-            height: 2px;
-            background-color: #333;
-            border-radius: 2px;
-        }
-
-        /* HERO SECTION (Main Heading) */
+        /* HERO SECTION */
         .hero-section {
             background-color: white;
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
             margin-bottom: 15px;
         }
 
-        .main-heading {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
+        .main-heading { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+        .heading-purple { color: #6C5CE7; }
+        .sub-heading { font-size: 14px; color: #666; margin-bottom: 5px; }
+        .warning-text { font-size: 12px; color: #E74C3C; font-weight: 600; }
 
-        .heading-black { color: #000; }
-        .heading-purple { color: #6C5CE7; } /* Purple text in heading */
-
-        .sub-heading {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .warning-text {
-            font-size: 12px;
-            color: #E74C3C; /* Red warning color */
-            font-weight: 600;
-        }
-
-        /* PURPLE CALL-TO-ACTION BANNER */
+        /* GRADIENT BANNER */
         .cta-banner {
-            background: linear-gradient(135deg, #4C59CF 0%, #6C5CE7 100%); /* Purple gradient */
+            background: linear-gradient(135deg, #4C59CF 0%, #6C5CE7 100%);
             color: white;
             padding: 20px;
             border-radius: 15px;
@@ -121,37 +72,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.2);
         }
 
-        .cta-text h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .cta-text p {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-
-        /* CTA ICON (Simplified) */
+        .cta-text h3 { font-size: 18px; margin-bottom: 4px; }
+        .cta-text p { font-size: 12px; opacity: 0.9; }
         .cta-icon-bg {
-            background-color: rgba(255, 255, 255, 0.15); /* Translucent background */
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; justify-content: center; align-items: center;
             font-size: 20px;
         }
 
-        /* --- FORM SECTION START --- */
+        /* FORM SECTIONS */
         .form-section {
             background-color: white;
-            padding: 20px 15px;
-            margin: 0 15px;
+            padding: 20px;
+            margin: 0 15px 15px 15px;
             border-radius: 15px;
             border: 1px solid #E1E8ED;
         }
@@ -161,143 +98,77 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 20px;
-            border-bottom: 1px solid #E1E8ED;
+            border-bottom: 1px solid #F0F0F0;
             padding-bottom: 10px;
         }
 
-        .icon-clock-bg {
-            background-color: #EBF8FF; /* Light blue background for icon */
-            color: #3182CE;
+        .icon-bg {
             border-radius: 8px;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 16px;
+            width: 32px; height: 32px;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        .section-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #000;
-        }
+        .section-title { font-size: 16px; font-weight: 700; }
 
-        /* INPUT GROUPS & LABELS */
-        .form-group {
-            margin-bottom: 18px;
-        }
+        .form-group { margin-bottom: 18px; }
+        .form-label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+        .required-star { color: #E74C3C; margin-left: 2px; }
 
-        .form-label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        /* Dual Language Styling */
-        .lang-en { font-family: sans-serif; font-weight: 400; color: #555; }
-        .lang-am { font-family: "Nyala", serif; font-weight: 700; color: #000; }
-
-        .required-star {
-            color: #E74C3C;
-            margin-left: 2px;
-        }
-
-        /* INPUT FIELDS STYLING */
         .form-input {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #E1E8ED; /* Light border */
+            border: 1px solid #E1E8ED;
             border-radius: 10px;
             font-size: 16px;
             background-color: #fff;
-            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        .form-input:focus {
-            outline: none;
-            border-color: #6C5CE7; /* Purple focus border */
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
-        }
-
-        /* Customize Placeholder Color */
-        .form-input::placeholder {
-            color: #99AAB5;
-            opacity: 1;
-        }
-
-        /* Special Styling for Textarea */
-        textarea.form-input {
-            resize: vertical; /* Allow vertical resizing */
-            min-height: 100px;
-            line-height: 1.5;
-        }
-
-        /* Price Input Special Handling ($ 0.00) */
-        .price-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .price-symbol {
-            position: absolute;
-            left: 15px;
-            color: #99AAB5;
-            font-size: 16px;
-            pointer-events: none; /* Icon won't interfere with typing */
-        }
-
-        .price-input {
-            padding-left: 35px; /* Add padding to accommodate the symbol */
-        }
-
-        /* SUBMIT BUTTON (Post to Channel) */
-        .submit-container {
-            padding: 0 15px;
-            margin-top: 20px;
-        }
-
-        .btn-submit {
+        /* MEDIA UPLOAD BOXES */
+        .dashed-upload-box {
             width: 100%;
-            background-color: #6C5CE7; /* Purple background */
+            height: 110px;
+            border: 2px dashed #CBD5E0;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fafafa;
+            margin-top: 5px;
+        }
+
+        .upload-content { text-align: center; color: #718096; }
+        .upload-plus { font-size: 28px; display: block; }
+        .upload-text { font-size: 12px; font-weight: 600; }
+
+        /* FOOTER BUTTON */
+        .footer-container { padding: 10px 15px; text-align: center; }
+        .btn-post {
+            width: 100%;
+            background: linear-gradient(135deg, #4C59CF 0%, #6C5CE7 100%);
             color: white;
             border: none;
             padding: 16px;
-            border-radius: 12px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
-            transition: background-color 0.2s, transform 0.1s;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
         }
 
-        .btn-submit:hover { background-color: #5A4BDF; }
-        .btn-submit:active { transform: scale(0.98); } /* Click effect */
-
+        .agreement { font-size: 11px; color: #999; margin-top: 12px; }
     </style>
 </head>
 <body>
 
     <div class="top-nav">
         <div class="nav-left">
-            <div class="home-icon-bg">🏠</div> <div class="nav-title">ያለ ደላላ</div>
+            <div class="home-icon-bg">🏠</div>
+            <div class="nav-title">ያለ ደላላ</div>
         </div>
-        <div class="nav-right">
-            <button class="telegram-btn">ቴሌግራም</button>
-            <div class="hamburger-icon">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
+        <button class="telegram-btn">ቴሌግራም</button>
     </div>
 
     <div class="hero-section">
-        <h1 class="main-heading">
-            <span class="heading-black">የሚከራይ </span>
-            <span class="heading-purple">ንብረት ይለጥፉ</span>
-        </h1>
+        <h1 class="main-heading">የሚከራይ <span class="heading-purple">ንብረት ይለጥፉ</span></h1>
         <p class="sub-heading">ንብረትዎን ቀለል ባለ መንገድ ያከራዩ።</p>
         <p class="warning-text">ልብ በሉ: ደላላ አናስተናግድም!</p>
     </div>
@@ -307,111 +178,88 @@
             <h3>አዲስ የሚከራይ ልጥፍ</h3>
             <p>ለመጀመር ከታች ያለውን ዝርዝር ይሙሉ</p>
         </div>
-        <div class="cta-icon-bg">📋</div> </div>
+        <div class="cta-icon-bg">📋</div>
+    </div>
 
     <div class="form-section">
         <div class="section-header">
-            <div class="icon-clock-bg">🕐</div> <div class="section-title">መሰረታዊ መረጃ</div>
+            <div class="icon-bg" style="background:#EBF8FF; color:#3182CE;">🕐</div>
+            <div class="section-title">መሰረታዊ መረጃ</div>
         </div>
 
-        <form id="rentalForm">
-            <div class="form-group">
-                <label class="form-label" for="title">
-                    <span class="lang-en">Item Title</span> | 
-                    <span class="lang-am">መግለጫ ስም</span>
-                    <span class="required-star">*</span>
-                </label>
-                <input type="text" id="title" class="form-input" placeholder="ርዕስ ያስገቡ (ለምሳሌ የሚከራይ መኖርያ ቤት)" required>
-            </div>
+        <div class="form-group">
+            <label class="form-label">Item Title | መግለጫ ስም <span class="required-star">*</span></label>
+            <input type="text" id="title" class="form-input" placeholder="ርዕስ ያስገቡ (ለምሳሌ የሚከራይ መኖርያ ቤት)">
+        </div>
 
-            <div class="form-group">
-                <label class="form-label" for="price">
-                    <span class="lang-en">Price</span> | 
-                    <span class="lang-am">ዋጋ በ ብር</span>
-                    <span class="required-star">*</span>
-                </label>
-                <div class="price-wrapper">
-                    <span class="price-symbol">$</span>
-                    <input type="number" id="price" class="form-input price-input" placeholder="0.00" step="1" required>
-                </div>
-            </div>
+        <div class="form-group">
+            <label class="form-label">Price | ዋጋ በ ብር <span class="required-star">*</span></label>
+            <input type="number" id="price" class="form-input" placeholder="$ 0.00">
+        </div>
 
-            <div class="form-group">
-                <label class="form-label" for="phone">
-                    <span class="lang-en">Contact Phone</span> | 
-                    <span class="lang-am">ስልክ ቁጥር</span>
-                    <span class="required-star">*</span>
-                </label>
-                <input type="tel" id="phone" class="form-input" placeholder="ስልክ ቁጥር ያስገቡ" required pattern="[0-9]{10}">
-            </div>
+        <div class="form-group">
+            <label class="form-label">Contact Phone | ስልክ ቁጥር <span class="required-star">*</span></label>
+            <input type="tel" id="phone" class="form-input" placeholder="ስልክ ቁጥር ያስገቡ">
+        </div>
 
-            <div class="form-group">
-                <label class="form-label" for="location">
-                    <span class="lang-en">Location</span> | 
-                    <span class="lang-am">አድራሻ</span>
-                    <span class="required-star">*</span>
-                </label>
-                <input type="text" id="location" class="form-input" placeholder="አድራሻ ያስገቡ" required>
-            </div>
+        <div class="form-group">
+            <label class="form-label">Location | አድራሻ <span class="required-star">*</span></label>
+            <input type="text" id="location" class="form-input" placeholder="አድራሻ ያስገቡ">
+        </div>
 
-            <div class="form-group">
-                <label class="form-label" for="description">
-                    <span class="lang-en">Description</span> | 
-                    <span class="lang-am">ዝርዝር መግለጫ</span>
-                    <span class="required-star">*</span>
-                </label>
-                <textarea id="description" class="form-input" placeholder="ማንኛውንም አስፈላጊ ዝርዝሮችን ይግለጹ..." required></textarea>
-            </div>
-        </form>
+        <div class="form-group">
+            <label class="form-label">Description | ዝርዝር መግለጫ <span class="required-star">*</span></label>
+            <textarea id="description" class="form-input" style="height:80px;" placeholder="ማንኛውንም አስፈላጊ ዝርዝሮችን ይግለጹ..."></textarea>
+        </div>
     </div>
 
-    <div class="submit-container">
-        <button type="submit" form="rentalForm" class="btn-submit">ቻናሉ ላይ ልጥፍ</button>
+    <div class="form-section">
+        <div class="section-header">
+            <div class="icon-bg" style="background:#E6FFFA; color:#38A169;">🖼️</div>
+            <div class="section-title">Video & Photo | ቪዲዮ እና ፎቶ</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">የንብረት ፎቶ ያስገቡ <span class="required-star">*</span></label>
+            <div class="dashed-upload-box">
+                <div class="upload-content"><span class="upload-plus">+</span><span class="upload-text">ፎቶ ይጨምሩ</span></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">አጭር ቪዲዮ (ቢፈልጉ ይጨምሩ)</label>
+            <div class="dashed-upload-box">
+                <div class="upload-content"><span class="upload-plus">📹</span><span class="upload-text">ቪዲዮ ይጨምሩ</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-container">
+        <button class="btn-post" onclick="sendData()">+ ይለጥፉ</button>
+        <p class="agreement">በመጠቀምዎ የአገልግሎት ውል እና የግላዊነት ፖሊሲ ተስማምተዋል።</p>
     </div>
 
     <script>
-        // Initialize Telegram WebApp
         const tg = window.Telegram.WebApp;
-        tg.expand(); // Ensure full screen app view
-        
-        // Match standard background color to Telegram's background for a native feel
-        document.body.style.backgroundColor = tg.themeParams.bg_color || '#F7F9FC';
+        tg.expand();
 
-        const form = document.getElementById('rentalForm');
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent page refresh
-
-            // 1. Collect Form Data
+        function sendData() {
             const data = {
-                title: document.getElementById('title').value.trim(),
-                price: document.getElementById('price').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                location: document.getElementById('location').value.trim(),
-                description: document.getElementById('description').value.trim()
+                title: document.getElementById('title').value,
+                price: document.getElementById('price').value,
+                phone: document.getElementById('phone').value,
+                location: document.getElementById('location').value,
+                description: document.getElementById('description').value
             };
 
-            // 2. Validate phone number strictly (example)
-            if(!/^[0-9]{10}$/.test(data.phone)){
-                 tg.showAlert("የስልክ ቁጥር የተሳሳተ ነው (10 አሃዞች መሆን አለባቸው)!");
-                 return;
+            if(!data.title || !data.price || !data.phone || !data.location) {
+                tg.showAlert("እባክዎ ሁሉንም አስፈላጊ መረጃዎች ያስገቡ!");
+                return;
             }
 
-            // 3. Inform User (Using Telegram Native Dialog)
-            tg.showConfirm(`እባክዎ መረጃውን ያረጋግጡ፡\n📍 ቦታ፡ ${data.location}\n💰 ዋጋ፡ ${data.price} ብር\n\nለመለጠፍ 'Ok' ን ይጫኑ።`, (confirmed) => {
-                if (confirmed) {
-                    // 4. Send JSON Data back to Python Bot
-                    tg.sendData(JSON.stringify(data));
-                    
-                    // 5. Close the Mini App window immediately
-                    tg.close();
-                }
-            });
-        });
-        
-        // Notify Telegram that the app is ready and expanded
-        tg.ready();
-
+            tg.sendData(JSON.stringify(data));
+            tg.close();
+        }
     </script>
 </body>
 </html>
