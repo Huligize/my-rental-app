@@ -2,82 +2,145 @@
 <html lang="am">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Betoch - Post Rental</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f4f7f6; color: #333; }
-        h3 { text-align: center; color: #0088cc; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; }
-        input:focus, textarea:focus { border-color: #0088cc; outline: none; box-shadow: 0 0 5px rgba(0,136,204,0.2); }
-        button { width: 100%; background: #0088cc; color: white; border: none; padding: 15px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
-        button:active { transform: scale(0.98); background: #0077b5; }
+        :root {
+            --tg-theme-button-color: #0088cc;
+            --tg-theme-button-text-color: #ffffff;
+            --tg-theme-bg-color: #ffffff;
+            --tg-theme-text-color: #222222;
+            --tg-theme-hint-color: #999999;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h2 { margin: 0; color: var(--tg-theme-button-color); }
+        .header p { margin: 5px 0; font-size: 14px; color: var(--tg-theme-hint-color); }
+
+        .form-group { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d1d1;
+            border-radius: 10px;
+            background-color: #fafafa;
+            font-size: 16px;
+            color: #000;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--tg-theme-button-color);
+            background-color: #fff;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-submit:active { transform: scale(0.98); opacity: 0.9; }
+
+        .hint { font-size: 12px; color: var(--tg-theme-hint-color); margin-top: 4px; }
     </style>
 </head>
 <body>
-    <h3>🏠 የቤት መረጃ ማስገቢያ</h3>
-    
+
+    <div class="header">
+        <h2>🏠 የሚከራይ ቤት ይለጥፉ</h2>
+        <p>ያለ ደላላ መረጃዎን ለተከራዮች ያጋሩ</p>
+    </div>
+
     <div class="form-group">
-        <label>የቤት ዓይነት (ለምሳሌ፡ ባለ 3 አፓርትመንት)</label>
-        <input type="text" id="title" placeholder="ባለ 3 አፓርትመንት">
+        <label>የቤት ዓይነት</label>
+        <select id="title">
+            <option value="ባለ 1 አፓርትመንት">ባለ 1 አፓርትመንት</option>
+            <option value="ባለ 2 አፓርትመንት">ባለ 2 አፓርትመንት</option>
+            <option value="ባለ 3 አፓርትመንት" selected>ባለ 3 አፓርትመንት</option>
+            <option value="ቪላ ቤት">ቪላ ቤት</option>
+            <option value="ስቱዲዮ">ስቱዲዮ</option>
+        </select>
     </div>
 
     <div class="form-group">
         <label>📍 አድራሻ (ቦታ)</label>
-        <input type="text" id="loc" placeholder="ለምሳሌ፡ ቦሌ">
+        <input type="text" id="loc" placeholder="ለምሳሌ፡ ቦሌ 72" required>
     </div>
 
     <div class="form-group">
-        <label>💰 ዋጋ (በብር)</label>
-        <input type="number" id="prc" placeholder="ለምሳሌ፡ 45,000">
+        <label>💰 ወርሃዊ ኪራይ (ብር)</label>
+        <input type="number" id="prc" placeholder="ለምሳሌ፡ 45,000" required>
     </div>
 
     <div class="form-group">
         <label>☎️ የአከራይ ስልክ ቁጥር</label>
-        <input type="tel" id="phn" placeholder="09...">
+        <input type="tel" id="phn" placeholder="0911000000" required>
+        <div class="hint">ተከራዮች በቀጥታ የሚደውሉበት ስልክ</div>
     </div>
 
     <div class="form-group">
         <label>📝 ዝርዝር መግለጫ</label>
-        <textarea id="desc" rows="3" placeholder="ስለ ቤቱ ተጨማሪ መረጃ..."></textarea>
+        <textarea id="desc" rows="4" placeholder="ስለ ቤቱ ሁኔታ፣ ቅድመ ክፍያ እና ሌሎች መረጃዎች..."></textarea>
     </div>
 
-   <button type="button" onclick="sendDataToBot()">ቻናሉ ላይ ልጥፍ</button>
+    <button class="btn-submit" onclick="sendDataToBot()">ቻናሉ ላይ ልጥፍ</button>
 
-   <script>
-    // 1. Initialize the Telegram WebApp object
-    const tg = window.Telegram.WebApp;
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.ready();
 
-    // 2. Expand the app to full screen as soon as it opens
-    tg.expand();
-
-    function sendDataToBot() {
-        // 3. Collect data from your input fields
-        const data = {
-            title: document.getElementById("title").value,
-            location: document.getElementById("loc").value,
-            price: document.getElementById("prc").value,
-            phone: document.getElementById("phn").value,
-            description: document.getElementById("desc").value
-        };
-
-        // 4. Simple Validation: Don't send empty data
-        if (!data.location || !data.price || !data.phone) {
-            alert("እባክዎ አስፈላጊ መረጃዎችን (ቦታ፣ ዋጋ እና ስልክ) ያስገቡ!");
-            return;
+        // Match the button color to the user's Telegram theme
+        if (tg.themeParams.button_color) {
+            document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color);
         }
 
-        // 5. THE CRITICAL HANDSHAKE
-        // This sends the JSON string to your Python main.py
-        try {
+        function sendDataToBot() {
+            const data = {
+                title: document.getElementById("title").value,
+                location: document.getElementById("loc").value,
+                price: document.getElementById("prc").value,
+                phone: document.getElementById("phn").value,
+                description: document.getElementById("desc").value
+            };
+
+            // Professional Validation
+            if(!data.location || !data.price || !data.phone) {
+                tg.showAlert("እባክዎ አስፈላጊ መረጃዎችን በትክክል ያስገቡ!");
+                return;
+            }
+
+            if(data.phone.length < 10) {
+                tg.showAlert("እባክዎ ትክክለኛ ስልክ ቁጥር ያስገቡ!");
+                return;
+            }
+
+            // The Handshake
             tg.sendData(JSON.stringify(data));
-            
-            // 6. Close the Mini App window
             tg.close();
-        } catch (error) {
-            console.error("Telegram Mini App Error:", error);
-            alert("ስህተት ተፈጥሯል፤ እባክዎ በቦቱ ውስጥ መክፈትዎን ያረጋግጡ።");
         }
-    }
-</script>
+    </script>
+</body>
+</html>
