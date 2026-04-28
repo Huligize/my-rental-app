@@ -3,96 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Betoch - Post Rental</title>
+    <title>ቤቶች (Betoch) - የሚከራይ ይለጥፉ</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        :root {
-            --tg-theme-button-color: #0088cc;
-            --tg-theme-button-text-color: #ffffff;
-            --tg-theme-bg-color: #ffffff;
-            --tg-theme-text-color: #222222;
-        }
+        /* CSS Reset for consistent display */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            font-family: -apple-system, sans-serif;
-            background-color: var(--tg-theme-bg-color);
-            color: var(--tg-theme-text-color);
-            margin: 0; padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Nyala", "Abyssinica SIL"; /* Include Amharic supported fonts */
+            background-color: #F7F9FC; /* Light gray-blue background from image */
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 20px; /* Space at the bottom */
         }
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h2 { color: var(--tg-theme-button-color); margin: 0; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
-        input, textarea, select {
-            width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px;
-            font-size: 16px; box-sizing: border-box;
+
+        /* --- STYLING START --- */
+
+        /* TOP NAVIGATION BAR */
+        .top-nav {
+            background-color: #fff;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E1E8ED;
+            position: sticky; /* Keep it visible while scrolling */
+            top: 0;
+            z-index: 100;
         }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .home-icon-bg {
+            background-color: #4C59CF; /* Blue circle background */
+            color: white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .nav-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .telegram-btn {
+            background-color: #6C5CE7; /* Purple button background */
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* HAMBURGER MENU ICON (Simplified) */
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+        .hamburger-icon span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background-color: #333;
+            border-radius: 2px;
+        }
+
+        /* HERO SECTION (Main Heading) */
+        .hero-section {
+            background-color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .main-heading {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .heading-black { color: #000; }
+        .heading-purple { color: #6C5CE7; } /* Purple text in heading */
+
+        .sub-heading {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .warning-text {
+            font-size: 12px;
+            color: #E74C3C; /* Red warning color */
+            font-weight: 600;
+        }
+
+        /* PURPLE CALL-TO-ACTION BANNER */
+        .cta-banner {
+            background: linear-gradient(135deg, #4C59CF 0%, #6C5CE7 100%); /* Purple gradient */
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 0 15px 20px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.2);
+        }
+
+        .cta-text h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .cta-text p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* CTA ICON (Simplified) */
+        .cta-icon-bg {
+            background-color: rgba(255, 255, 255, 0.15); /* Translucent background */
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        /* --- FORM SECTION START --- */
+        .form-section {
+            background-color: white;
+            padding: 20px 15px;
+            margin: 0 15px;
+            border-radius: 15px;
+            border: 1px solid #E1E8ED;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #E1E8ED;
+            padding-bottom: 10px;
+        }
+
+        .icon-clock-bg {
+            background-color: #EBF8FF; /* Light blue background for icon */
+            color: #3182CE;
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        /* INPUT GROUPS & LABELS */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Dual Language Styling */
+        .lang-en { font-family: sans-serif; font-weight: 400; color: #555; }
+        .lang-am { font-family: "Nyala", serif; font-weight: 700; color: #000; }
+
+        .required-star {
+            color: #E74C3C;
+            margin-left: 2px;
+        }
+
+        /* INPUT FIELDS STYLING */
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #E1E8ED; /* Light border */
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #6C5CE7; /* Purple focus border */
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        }
+
+        /* Customize Placeholder Color */
+        .form-input::placeholder {
+            color: #99AAB5;
+            opacity: 1;
+        }
+
+        /* Special Styling for Textarea */
+        textarea.form-input {
+            resize: vertical; /* Allow vertical resizing */
+            min-height: 100px;
+            line-height: 1.5;
+        }
+
+        /* Price Input Special Handling ($ 0.00) */
+        .price-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .price-symbol {
+            position: absolute;
+            left: 15px;
+            color: #99AAB5;
+            font-size: 16px;
+            pointer-events: none; /* Icon won't interfere with typing */
+        }
+
+        .price-input {
+            padding-left: 35px; /* Add padding to accommodate the symbol */
+        }
+
+        /* SUBMIT BUTTON (Post to Channel) */
+        .submit-container {
+            padding: 0 15px;
+            margin-top: 20px;
+        }
+
         .btn-submit {
-            width: 100%; background: var(--tg-theme-button-color);
-            color: var(--tg-theme-button-text-color);
-            border: none; padding: 15px; border-radius: 10px;
-            font-size: 18px; font-weight: bold; cursor: pointer;
+            width: 100%;
+            background-color: #6C5CE7; /* Purple background */
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
+            transition: background-color 0.2s, transform 0.1s;
         }
+
+        .btn-submit:hover { background-color: #5A4BDF; }
+        .btn-submit:active { transform: scale(0.98); } /* Click effect */
+
     </style>
 </head>
 <body>
-    <div class="header">
-        <h2>🏠 ቤቶች (Betoch)</h2>
-        <p>የሚከራይ ቤት መረጃ ያስገቡ</p>
+
+    <div class="top-nav">
+        <div class="nav-left">
+            <div class="home-icon-bg">🏠</div> <div class="nav-title">ያለ ደላላ</div>
+        </div>
+        <div class="nav-right">
+            <button class="telegram-btn">ቴሌግራም</button>
+            <div class="hamburger-icon">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label>የቤት ዓይነት</label>
-        <select id="title">
-            <option value="ባለ 1 አፓርትመንት">ባለ 1 አፓርትመንት</option>
-            <option value="ባለ 2 አፓርትመንት">ባለ 2 አፓርትመንት</option>
-            <option value="ባለ 3 አፓርትመንት" selected>ባለ 3 አፓርትመንት</option>
-            <option value="ቪላ ቤት">ቪላ ቤት</option>
-        </select>
+    <div class="hero-section">
+        <h1 class="main-heading">
+            <span class="heading-black">የሚከራይ </span>
+            <span class="heading-purple">ንብረት ይለጥፉ</span>
+        </h1>
+        <p class="sub-heading">ንብረትዎን ቀለል ባለ መንገድ ያከራዩ።</p>
+        <p class="warning-text">ልብ በሉ: ደላላ አናስተናግድም!</p>
     </div>
 
-    <div class="form-group">
-        <label>📍 አድራሻ (ቦታ)</label>
-        <input type="text" id="loc" placeholder="ለምሳሌ፡ ቦሌ 72" required>
+    <div class="cta-banner">
+        <div class="cta-text">
+            <h3>አዲስ የሚከራይ ልጥፍ</h3>
+            <p>ለመጀመር ከታች ያለውን ዝርዝር ይሙሉ</p>
+        </div>
+        <div class="cta-icon-bg">📋</div> </div>
+
+    <div class="form-section">
+        <div class="section-header">
+            <div class="icon-clock-bg">🕐</div> <div class="section-title">መሰረታዊ መረጃ</div>
+        </div>
+
+        <form id="rentalForm">
+            <div class="form-group">
+                <label class="form-label" for="title">
+                    <span class="lang-en">Item Title</span> | 
+                    <span class="lang-am">መግለጫ ስም</span>
+                    <span class="required-star">*</span>
+                </label>
+                <input type="text" id="title" class="form-input" placeholder="ርዕስ ያስገቡ (ለምሳሌ የሚከራይ መኖርያ ቤት)" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="price">
+                    <span class="lang-en">Price</span> | 
+                    <span class="lang-am">ዋጋ በ ብር</span>
+                    <span class="required-star">*</span>
+                </label>
+                <div class="price-wrapper">
+                    <span class="price-symbol">$</span>
+                    <input type="number" id="price" class="form-input price-input" placeholder="0.00" step="1" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="phone">
+                    <span class="lang-en">Contact Phone</span> | 
+                    <span class="lang-am">ስልክ ቁጥር</span>
+                    <span class="required-star">*</span>
+                </label>
+                <input type="tel" id="phone" class="form-input" placeholder="ስልክ ቁጥር ያስገቡ" required pattern="[0-9]{10}">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="location">
+                    <span class="lang-en">Location</span> | 
+                    <span class="lang-am">አድራሻ</span>
+                    <span class="required-star">*</span>
+                </label>
+                <input type="text" id="location" class="form-input" placeholder="አድራሻ ያስገቡ" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="description">
+                    <span class="lang-en">Description</span> | 
+                    <span class="lang-am">ዝርዝር መግለጫ</span>
+                    <span class="required-star">*</span>
+                </label>
+                <textarea id="description" class="form-input" placeholder="ማንኛውንም አስፈላጊ ዝርዝሮችን ይግለጹ..." required></textarea>
+            </div>
+        </form>
     </div>
 
-    <div class="form-group">
-        <label>💰 ወርሃዊ ኪራይ (ብር)</label>
-        <input type="number" id="prc" placeholder="ለምሳሌ፡ 45,000" required>
+    <div class="submit-container">
+        <button type="submit" form="rentalForm" class="btn-submit">ቻናሉ ላይ ልጥፍ</button>
     </div>
-
-    <div class="form-group">
-        <label>☎️ የአከራይ ስልክ ቁጥር</label>
-        <input type="tel" id="phn" placeholder="09..." required>
-    </div>
-
-    <div class="form-group">
-        <label>📝 ዝርዝር መግለጫ</label>
-        <textarea id="desc" rows="3"></textarea>
-    </div>
-
-    <button class="btn-submit" onclick="sendDataToBot()">ቻናሉ ላይ ልጥፍ</button>
 
     <script>
+        // Initialize Telegram WebApp
         const tg = window.Telegram.WebApp;
-        tg.expand();
+        tg.expand(); // Ensure full screen app view
+        
+        // Match standard background color to Telegram's background for a native feel
+        document.body.style.backgroundColor = tg.themeParams.bg_color || '#F7F9FC';
 
-        function sendDataToBot() {
+        const form = document.getElementById('rentalForm');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent page refresh
+
+            // 1. Collect Form Data
             const data = {
-                title: document.getElementById("title").value,
-                location: document.getElementById("loc").value,
-                price: document.getElementById("prc").value,
-                phone: document.getElementById("phn").value,
-                description: document.getElementById("desc").value
+                title: document.getElementById('title').value.trim(),
+                price: document.getElementById('price').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                location: document.getElementById('location').value.trim(),
+                description: document.getElementById('description').value.trim()
             };
 
-            if(!data.location || !data.price || !data.phone) {
-                tg.showAlert("እባክዎ አስፈላጊ መረጃዎችን ያስገቡ!");
-                return;
+            // 2. Validate phone number strictly (example)
+            if(!/^[0-9]{10}$/.test(data.phone)){
+                 tg.showAlert("የስልክ ቁጥር የተሳሳተ ነው (10 አሃዞች መሆን አለባቸው)!");
+                 return;
             }
 
-            tg.sendData(JSON.stringify(data));
-            tg.close();
-        }
+            // 3. Inform User (Using Telegram Native Dialog)
+            tg.showConfirm(`እባክዎ መረጃውን ያረጋግጡ፡\n📍 ቦታ፡ ${data.location}\n💰 ዋጋ፡ ${data.price} ብር\n\nለመለጠፍ 'Ok' ን ይጫኑ።`, (confirmed) => {
+                if (confirmed) {
+                    // 4. Send JSON Data back to Python Bot
+                    tg.sendData(JSON.stringify(data));
+                    
+                    // 5. Close the Mini App window immediately
+                    tg.close();
+                }
+            });
+        });
+        
+        // Notify Telegram that the app is ready and expanded
+        tg.ready();
+
     </script>
 </body>
 </html>
