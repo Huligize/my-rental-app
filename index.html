@@ -11,66 +11,33 @@
             --tg-theme-button-text-color: #ffffff;
             --tg-theme-bg-color: #ffffff;
             --tg-theme-text-color: #222222;
-            --tg-theme-hint-color: #999999;
         }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, sans-serif;
             background-color: var(--tg-theme-bg-color);
             color: var(--tg-theme-text-color);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+            margin: 0; padding: 20px;
         }
-
-        .header { text-align: center; margin-bottom: 25px; }
-        .header h2 { margin: 0; color: var(--tg-theme-button-color); }
-        .header p { margin: 5px 0; font-size: 14px; color: var(--tg-theme-hint-color); }
-
-        .form-group { margin-bottom: 18px; }
-        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
-        
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h2 { color: var(--tg-theme-button-color); margin: 0; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
         input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d1d1;
-            border-radius: 10px;
-            background-color: #fafafa;
-            font-size: 16px;
-            color: #000;
-            box-sizing: border-box;
+            width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px;
+            font-size: 16px; box-sizing: border-box;
         }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--tg-theme-button-color);
-            background-color: #fff;
-        }
-
         .btn-submit {
-            width: 100%;
-            background-color: var(--tg-theme-button-color);
+            width: 100%; background: var(--tg-theme-button-color);
             color: var(--tg-theme-button-text-color);
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: none; padding: 15px; border-radius: 10px;
+            font-size: 18px; font-weight: bold; cursor: pointer;
         }
-
-        .btn-submit:active { transform: scale(0.98); opacity: 0.9; }
-
-        .hint { font-size: 12px; color: var(--tg-theme-hint-color); margin-top: 4px; }
     </style>
 </head>
 <body>
-
     <div class="header">
-        <h2>🏠 የሚከራይ ቤት ይለጥፉ</h2>
-        <p>ያለ ደላላ መረጃዎን ለተከራዮች ያጋሩ</p>
+        <h2>🏠 ቤቶች (Betoch)</h2>
+        <p>የሚከራይ ቤት መረጃ ያስገቡ</p>
     </div>
 
     <div class="form-group">
@@ -80,7 +47,6 @@
             <option value="ባለ 2 አፓርትመንት">ባለ 2 አፓርትመንት</option>
             <option value="ባለ 3 አፓርትመንት" selected>ባለ 3 አፓርትመንት</option>
             <option value="ቪላ ቤት">ቪላ ቤት</option>
-            <option value="ስቱዲዮ">ስቱዲዮ</option>
         </select>
     </div>
 
@@ -96,13 +62,12 @@
 
     <div class="form-group">
         <label>☎️ የአከራይ ስልክ ቁጥር</label>
-        <input type="tel" id="phn" placeholder="0911000000" required>
-        <div class="hint">ተከራዮች በቀጥታ የሚደውሉበት ስልክ</div>
+        <input type="tel" id="phn" placeholder="09..." required>
     </div>
 
     <div class="form-group">
         <label>📝 ዝርዝር መግለጫ</label>
-        <textarea id="desc" rows="4" placeholder="ስለ ቤቱ ሁኔታ፣ ቅድመ ክፍያ እና ሌሎች መረጃዎች..."></textarea>
+        <textarea id="desc" rows="3"></textarea>
     </div>
 
     <button class="btn-submit" onclick="sendDataToBot()">ቻናሉ ላይ ልጥፍ</button>
@@ -110,12 +75,6 @@
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
-        tg.ready();
-
-        // Match the button color to the user's Telegram theme
-        if (tg.themeParams.button_color) {
-            document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color);
-        }
 
         function sendDataToBot() {
             const data = {
@@ -126,18 +85,11 @@
                 description: document.getElementById("desc").value
             };
 
-            // Professional Validation
             if(!data.location || !data.price || !data.phone) {
-                tg.showAlert("እባክዎ አስፈላጊ መረጃዎችን በትክክል ያስገቡ!");
+                tg.showAlert("እባክዎ አስፈላጊ መረጃዎችን ያስገቡ!");
                 return;
             }
 
-            if(data.phone.length < 10) {
-                tg.showAlert("እባክዎ ትክክለኛ ስልክ ቁጥር ያስገቡ!");
-                return;
-            }
-
-            // The Handshake
             tg.sendData(JSON.stringify(data));
             tg.close();
         }
